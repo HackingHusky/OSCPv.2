@@ -1,5 +1,7 @@
 This is for everything I've found so far while studying for the OSCP. 
 
+### With module.so
+
 This module.so is a compiled file from this repo:
 https://github.com/n0b0dyCN/RedisModules-ExecuteCommand
 
@@ -46,7 +48,7 @@ It should look like this:
 
 
 
-
+## Priv Esc I found
 
 A Cron Job could also take place, 
 
@@ -70,3 +72,23 @@ same way as before, then log in with shell with telnet and place the file at thi
 cp /var/ftp/pub/utils.so /usr/local/lib/dev/utils.so
 ```
 There is also another way:
+Grab the utils.c and compile it on your workstation
+```
+gcc -shared -o utils.so -fPIC utils.c
+```
+
+Then share it back on the ftp server then copy it back to here:
+```
+cp /var/ftp/pub/utils.so /usr/local/lib/dev/utils.so
+```
+
+Last command:
+```
+ls -la /bin/bash
+bash -p
+```
+Should get root afterwards. 
+
+
+
+
