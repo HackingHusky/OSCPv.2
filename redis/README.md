@@ -56,7 +56,7 @@ A Cron Job could also take place,
 cat /etc/crontab
 ldd /usr/bin/log-sweeper
 ```
-****<img width="855" height="395" alt="image" src="https://github.com/user-attachments/assets/f4801d3c-786e-4125-a78e-9720eef06c79" />
+<img width="855" height="395" alt="image" src="https://github.com/user-attachments/assets/f4801d3c-786e-4125-a78e-9720eef06c79" />
 
 
 Make an malious file:
