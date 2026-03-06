@@ -95,6 +95,7 @@ ffuf -u http://10.10.10.10 -w /usr/share/seclists/Fuzzing/command-injection.txt
 ```
 
 For the most part, I made active notes here:
+
 https://medium.com/@aaronashley466/oscp-notes-recon-and-methodology-initial-access-cheatsheet-f2c0daf1f34c
 https://medium.com/@aaronashley466/ospc-notes-sql-injection-cheatsheet-0788f4624702
 https://medium.com/@aaronashley466/oscp-notes-web-application-attacks-cheatsheet-61641090ee90
