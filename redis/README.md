@@ -4,8 +4,8 @@ This is for everything I've found so far while studying for the OSCP.
 
 For compiling the module.c
 ```
-gcc -fPIC -std=gnu99 -c -o module.o module.c
-ld -o module.so module.o -shared -Bsymbolic -lc
+make clean 2>/dev/null || true
+make
 ```
 
 ## With module.so
