@@ -40,3 +40,7 @@ target:
 system.rev kali 6379
 ```
 That's for this module.so attack. 
+
+It should look like this:
+<img width="1746" height="843" alt="image" src="https://github.com/user-attachments/assets/6dca2a4d-1782-49bb-9ed3-4ac747c8177e" />
+
