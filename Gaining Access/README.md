@@ -1,21 +1,16 @@
 # Tips on getting quicker exploits
-## Common Attacks
-These appear over and over:
+## With Searchsploit
+```
+nmap -sC -sV -p- --open -v --min-rate 5000 -oN scan.nmap $target
+```
+```
+cat scan.nmap | grep open
+```
 
-Service	Common Exploit
+```
+searchsploit $(cat scan.nmap | grep open | awk '{print $3}')`
+```
+```
+grep open scan.nmap | awk '{print $3}' | xargs searchsploit
+```
 
-Apache	Path traversal
-
-Samba	RCE
-
-Nostromo	RCE
-
-Redis	Module RCE
-
-Tomcat	WAR upload
-
-Drupal	Drupalgeddon
-
-WordPress	Plugin RCE
-
-FTP	Backdoor
