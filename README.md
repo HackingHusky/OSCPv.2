@@ -14,10 +14,12 @@ https://medium.com/@aaronashley466/guide-to-ocsp-things-i-learned-along-the-way-
 ### Also, here's my list of notes I collected throughout my studies and lists
 
 https://docs.google.com/spreadsheets/d/1BslpPR5cmj16NV-nIS2OGDN5w3WDE9K5OrgACMtyU14/edit?gid=0#gid=0
+
 https://docs.google.com/spreadsheets/u/0/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview?pli=1
+
 https://docs.google.com/spreadsheets/d/18weuz_Eeynr6sXFQ87Cd5F0slOj9Z6rt/htmlview#
 
-I made my own setup, but also added every note and things I found on my journey, and if you're reading this, I want you to pass as well. I am making it my mission to get everyone to pass this exam. 
+I made my own lists like these, but also added every note and thing I found on my journey, and if you're reading this, I want you to pass as well. I am making it my mission to get everyone to pass this exam. 
 
 ## Pomodoro-1Hour.sh Script
 
