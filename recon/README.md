@@ -94,6 +94,23 @@ ffuf -u http://<TARGET_IP>/wp-content/plugins/FUZZ -w /usr/share/seclists/Discov
 ffuf -u http://10.10.10.10 -w /usr/share/seclists/Fuzzing/command-injection.txt
 ```
 
+## OSCP Recon Bash
+### First run these
+```
+sudo apt update
+sudo apt install -y nmap whatweb gobuster ffuf exploitdb
+```
+### Next, run this if you don't have seclist installed
+```
+sudo apt install -y seclists
+```
+### Run the script:
+```
+chmod +x oscp-recon.sh
+./oscp-recon.sh $target
+```
+This will do a lot of heavy lifting
+
 For the most part, I made active notes here:
 
 https://medium.com/@aaronashley466/oscp-notes-recon-and-methodology-initial-access-cheatsheet-f2c0daf1f34c
