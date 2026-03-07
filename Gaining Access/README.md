@@ -19,3 +19,6 @@ grep open scan.nmap | awk '{print $3}' | xargs searchsploit
 chmod +x recon.sh
 ./recon.sh 10.10.10.10
 ```
+
+## Link on CTF enumeration too 
+https://medium.com/@aaronashley466/oscp-ctf-tips-and-tricks-835e7c2ab96a
