@@ -18,3 +18,13 @@ https://docs.google.com/spreadsheets/u/0/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBn
 https://docs.google.com/spreadsheets/d/18weuz_Eeynr6sXFQ87Cd5F0slOj9Z6rt/htmlview#
 
 I made my own setup, but also added every note and things I found on my journey, and if you're reading this, I want you to pass as well. I am making it my mission to get everyone to pass this exam. 
+
+## Pomodoro-1Hour.sh Script
+
+So if you have a hard time and are going down bad rabbit holes, this is a quick script to fix that:
+
+```
+chmod +x Pomodoro-1Hour.sh
+./Pomodoro-1Hour.sh
+```
+That way, you can focus on the task at hand, and this script will tell you when to take a break. 
