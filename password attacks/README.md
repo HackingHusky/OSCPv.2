@@ -7,6 +7,9 @@ sudo gzip -d /usr/share/wordlist/rockyou.txt.gz
 ## Hydra
 
 ```
+hydra -l user -p password ssh://$target
+```
+```
 hydra -l user -p password -s <port like 2222> ssh://$target
 ```
 ```
