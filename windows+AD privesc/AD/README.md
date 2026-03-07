@@ -1,5 +1,8 @@
 # AD attacks
 
+## Tools
+https://www.kali.org/tools/kerberoast/
+
 ## PyGPOAbuse
 ```
 git clone https://github.com/Hackndo/pyGPOAbuse
