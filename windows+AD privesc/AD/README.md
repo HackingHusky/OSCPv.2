@@ -1,11 +1,15 @@
 # AD attacks
 
 ## Credfiles
-```
-UnattendedInstallFiles
-```
 Could be in the xxmap folder, dump SAM, a sql data base, look for everything!
-
+```
+UnattendedInstallFiles --> check for this with PowerUp
+```
+Example:
+```
+C:\Windows\Panther\unattend.xml
+C:\Windows\System32\sysprep\sysprep.xml
+```
 With evil-winrm
 ```
 reg save HKLM\SAM C:\users\administrator\Desktop\sam
