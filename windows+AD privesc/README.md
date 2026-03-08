@@ -1,9 +1,6 @@
 # Windows PrivEsc 
 
 ## Both AD and Windows PrivEsc go together 
-### Workflow:
-<img width="1316" height="871" alt="image" src="https://github.com/user-attachments/assets/71463e35-0344-4280-88f7-4203f0016c0f" />
-
 
 ## Manual look up
 
@@ -14,6 +11,37 @@ systeminfo
 net user
 net localgroup administrators
 Get-ScheduledTask --> check to see if you can abuse a schedule task
+```
+## PowerView Commands
+```
+. C:\AD\Tools\PowerView.ps1
+Get-DomainUser
+Get-DomainOU
+Get-DomainOU | select -ExpandProperty name
+(Get-DomainOU -Identity DevOps).distinguishedname | %{Get-DomainComputer -SearchBase $_} | select name
+Get-DomainGPO
+(Get-DomainOU -Identity DevOps).gplink
+
+Get-DomainGPO -Identity '{}' -- use sid with gplink
+
+Get-DomainGPO -Identity (Get-DomainOU -Identity DevOps).gplink.substring(11,(Get-DomainOU -Identity DevOps).gplink.length-72)
+
+Get-ForestDomain -Verbose
+Get-DomainTrust | ?{$_.TrustAttributes -eq "FILTER_SIDS"}
+Get-ForestDomain -Forest eurocorp.local | %{Get-DomainTrust -Domain $_.Name}
+Get-DomainTrust
+Get-DomainTrust
+Get-DomainUser | select -ExpandProperty samaccountname
+Get-DomainComputer | select -ExpandProperty dnshostname
+Get-DomainGroup -Identity "Domain Admins"
+Get-DomainGroupMember -Identity "Domain Admins"
+Get-DomainGroupMember -Identity "Enterprise Admins"
+Get-DomainGroupMember -Identity "Enterprise Admins" -Domain *.local
+Get-DomainObjectAcl -Identity "Domain Admins" -ResolveGUIDs -Verbose
+Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "studentx"}*
+
+ Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "RDPUsers"} 
+
 ```
 ## PowerUp commands
 One way to share it, in PowerShell:
