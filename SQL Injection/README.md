@@ -189,6 +189,18 @@ Encoded
 EXEC%20xp_cmdshell%20%27C%3A%5CWindows%5CTemp%5Cr80.exe%27
 ```
 ## SQL Injection with Intruder
+Starting with the link as an example
+<img width="1508" height="576" alt="image" src="https://github.com/user-attachments/assets/a17f11ff-3d23-45f8-9d1e-b53c6f01f645" />
+
+Check the error:
+<img width="849" height="174" alt="image" src="https://github.com/user-attachments/assets/34a7667f-aff9-4d50-bb03-348b16411637" />
+
+Next,  redo the connection and send it to the intruder, and under the username select it the user and then click on add:
+<img width="1895" height="523" alt="image" src="https://github.com/user-attachments/assets/6854586e-e8e7-4fc1-8fcc-164d8670cf39" />
+
+Next, add payload:
+
+
 
 
 ## Great tools:
