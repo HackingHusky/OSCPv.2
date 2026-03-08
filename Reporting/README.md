@@ -1,5 +1,6 @@
 # Reporting
-<img width="1024" height="617" alt="image" src="https://github.com/user-attachments/assets/cc8a41b3-7c23-4376-b529-ee4976d5524c" />
+<img width="1376" height="768" alt="Husky hacker excited to share his new repo" src="https://github.com/user-attachments/assets/3a0011a4-b708-4e3a-ad1a-473415e52a9e" />
+
 
 
 Follow offsec's template: 
