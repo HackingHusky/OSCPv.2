@@ -1,4 +1,4 @@
-This is for everything I've found so far while studying for the OSCP. 
+# Redis
 
 ## How to compile
 
