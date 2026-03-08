@@ -1,4 +1,5 @@
 # Redis
+<img width="1024" height="1024" alt="Husky hacker exploiting redis" src="https://github.com/user-attachments/assets/fba46843-0fca-4eea-8d40-c3c4e0383f97" />
 
 ## How to compile
 
