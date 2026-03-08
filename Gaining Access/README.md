@@ -1,4 +1,6 @@
 # Tips on getting quicker exploits
+<img width="1024" height="1024" alt="Husky hacker working on gaining access" src="https://github.com/user-attachments/assets/9f5501d4-d238-49b2-9645-df182edc9207" />
+
 ## With Searchsploit
 ```
 nmap -sC -sV -p- --open -v --min-rate 5000 -oN scan.nmap $target
