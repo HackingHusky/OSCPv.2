@@ -1,4 +1,6 @@
 # Reporting
+<img width="1024" height="617" alt="image" src="https://github.com/user-attachments/assets/cc8a41b3-7c23-4376-b529-ee4976d5524c" />
+
 
 Follow offsec's template: 
 
