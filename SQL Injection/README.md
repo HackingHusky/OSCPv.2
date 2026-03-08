@@ -1,4 +1,5 @@
 # SQL Injections
+<img width="1024" height="1024" alt="Husky hacker working on sql injection" src="https://github.com/user-attachments/assets/a88deac8-facf-45ef-ada3-d1a8db1fff7b" />
 
 ## Follow this video:
 https://www.youtube.com/watch?v=JkJLZ4NYISQ
