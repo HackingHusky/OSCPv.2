@@ -81,6 +81,6 @@ https://www.kali.org/tools/unicornscan/ --> great network scan
 
 https://www.kali.org/tools/freerdp3/ --> RDP
 
+https://github.com/swisskyrepo/PayloadsAllTheThings --> refer to this repo
 
-
-
+https://www.kali.org/tools/seclists/ --> install seclists
