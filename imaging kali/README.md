@@ -65,7 +65,7 @@ rlwrap nc -lvnp <port>
 ```
 
 ### Dirbuster
-This is my main tool for web enuermation since it has a default list
+This is my main tool for web enumeration since it has a default list
 ```
 sudo apt install dirbuster -y
 ```
@@ -78,6 +78,9 @@ dirsearch -u http://$target
 https://www.kali.org/tools/evil-winrm-py/ --> python evil-winrm, works the same as evil-winrm
 
 https://www.kali.org/tools/unicornscan/ --> great network scan
+
+https://www.kali.org/tools/freerdp3/ --> RDP
+
 
 
 
