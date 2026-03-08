@@ -188,23 +188,34 @@ Encoded
 ```
 EXEC%20xp_cmdshell%20%27C%3A%5CWindows%5CTemp%5Cr80.exe%27
 ```
-## SQL Injection with Intruder
+## SQL Injection with Intruder for Login Authtication
 Starting with the link as an example
 <img width="1508" height="576" alt="image" src="https://github.com/user-attachments/assets/a17f11ff-3d23-45f8-9d1e-b53c6f01f645" />
 
 Check the error:
+
 <img width="849" height="174" alt="image" src="https://github.com/user-attachments/assets/34a7667f-aff9-4d50-bb03-348b16411637" />
 
 Next,  redo the connection and send it to the intruder, and under the username select it the user and then click on add:
+
 <img width="1895" height="523" alt="image" src="https://github.com/user-attachments/assets/6854586e-e8e7-4fc1-8fcc-164d8670cf39" />
 
-Next, add payload:
+Next, add payload with the load option to the side, then click text file:
+
+<img width="792" height="596" alt="image" src="https://github.com/user-attachments/assets/03f07db8-ce77-4d3b-b80b-cf320a8624ce" />
+
+Next, start the payload; keep snipper; with SQL injection, you don't need a password; click start attack. A new window will pop up and check the response:
+
+<img width="1474" height="401" alt="image" src="https://github.com/user-attachments/assets/9db83af5-0ce9-498b-9fa2-f7e02aea3a48" />
+
+It worked:
+<img width="1487" height="817" alt="image" src="https://github.com/user-attachments/assets/77d81ddd-294c-4306-aa8b-d279e43c5f1b" />
 
 
-
+Now, back to the proxy tab and turn off the interceptor, or send it into the response and try logging in in Burp; you should log in. But code 301 means it was successful. 
 
 ## Great tools:
-https://github.com/squid22/PostgreSQL_RCE --> PostgreSQL RCE already to go, just change the ip address and port
+https://github.com/squid22/PostgreSQL_RCE --> PostgreSQL RCE is already there, just change the ip address and port
 
 https://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-sheet
 
