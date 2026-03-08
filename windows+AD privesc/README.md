@@ -10,6 +10,7 @@ whoami /groups
 systeminfo
 net user
 net localgroup administrators
+Get-ScheduledTask --> check to see if you can abuse a schedule task
 ```
 ## PowerUp commands
 One way to share it, in PowerShell:
