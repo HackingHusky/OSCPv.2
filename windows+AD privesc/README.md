@@ -1,4 +1,5 @@
 # Windows PrivEsc 
+<img width="1024" height="1024" alt="Husky hacker windows privesc" src="https://github.com/user-attachments/assets/84c43e2d-eaec-4f5d-a05d-9b0266e9ffe1" />
 
 ## Both AD and Windows PrivEsc go together 
 
