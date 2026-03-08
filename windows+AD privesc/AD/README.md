@@ -165,7 +165,7 @@ dir \\DC01\c$
 ```
 ## impacket-mssqlclient
 ```
-impacket-mssqlclient username:password@target_ip
+impacket-mssqlclient username:password@target_ip -windows-auth
 impacket-mssqlclient domain/username@target_ip -hashes LMHASH:NTHAS
 ```
 Then run these commands in order:
