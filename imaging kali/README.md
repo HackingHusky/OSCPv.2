@@ -1,4 +1,6 @@
 ## PIMP MY KALI
+<img width="1024" height="1024" alt="Husky hacker imaging kali linux" src="https://github.com/user-attachments/assets/5cd56a78-58ac-4f4f-bb36-8b3b1eab80c8" />
+
 
 This repo has you covered. Now, do you need everything in this repo? Probably not, but a quick Impacket-based reinstall script makes all the difference. 
 ```
