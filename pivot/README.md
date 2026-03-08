@@ -1,4 +1,5 @@
 # Pivoting
+<img width="1024" height="1024" alt="Husky hacker using ligolo" src="https://github.com/user-attachments/assets/2e539a0a-1a37-42ce-876c-125e24601d6c" />
 
 ## Installs 
 
