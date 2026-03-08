@@ -97,3 +97,8 @@ Wappyalyzer:
 https://github.com/swisskyrepo/PayloadsAllTheThings --> refer to this repo
 
 https://www.kali.org/tools/seclists/ --> install seclists
+
+Wine, you'll need it in some cases
+```
+sudo apt install wine
+```
