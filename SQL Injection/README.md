@@ -188,9 +188,14 @@ Encoded
 ```
 EXEC%20xp_cmdshell%20%27C%3A%5CWindows%5CTemp%5Cr80.exe%27
 ```
+## SQL Injection with Intruder
+
 
 ## Great tools:
 https://github.com/squid22/PostgreSQL_RCE --> PostgreSQL RCE already to go, just change the ip address and port
+
+https://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-sheet
+
 
 ## Links
 My Blog post on the subject:
