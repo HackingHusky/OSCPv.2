@@ -30,6 +30,14 @@ sudo apt update && sudo apt install exploitdb
 ```
 It may need an update from time to time
 
+With nmap too:
+
+Examples
+```
+grep Exploits /usr/share/nmap/scripts/*.nse
+nmap --script-help=clamav-exec.nse 
+```
+
 
 ## Link on CTF enumeration and tips 
 https://medium.com/@aaronashley466/oscp-ctf-tips-and-tricks-835e7c2ab96a
