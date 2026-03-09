@@ -51,7 +51,10 @@ API attacks:
 gobuster dir -u http://$target -w /usr/share/wordlists/dirb/big.txt -p pattern
 curl -i http://$target/users/v1
 ```
-
+Extremely helpful command
+```
+sudo curl -s --user-agent GoogleBot http://$target/robots.txt -v
+```
 Burp notes:
 Focus on sending to the repeater and checking on the response. 
 For more of an attack pattern on SQL Injection or brute force:
