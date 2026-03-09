@@ -6,7 +6,7 @@
 
 ### This is my repo on all the scripts and lessons I learned along the way
 
-I wanted to share a huge thank-you for all the positive feedback on my blog post about the note series, and wanted to make this a last-stop repo. It's been fun building this out. While the OSCP itself is extremely tough, I wanted to give back to an amazing community. I failed it twice so far, but I never really put the pen to paper with my notes until I started making blog posts on CTFs and sharing what I learned. I wanted to make this repo so you can clone it and get all the tools you need. Making this all for the underdogs out there that want to pass. 
+I wanted to share a huge thank-you for all the positive feedback on my blog post about the note series, and wanted to make this a last-stop repo. It's been fun building this out. While the OSCP itself is extremely tough, I wanted to give back to an amazing community. I failed it twice so far, but I never really put the pen to paper with my notes until I started making blog posts on CTFs and sharing what I learned. I wanted to make this repo so you can clone it and get all the tools you need. Making this for all the underdogs out there who want to pass. 
 
 ## Here's more about me, my struggle with the OSCP, and my own cybersecurity journey:
 https://medium.com/@aaronashley466/guide-to-ocsp-things-i-learned-along-the-way-from-failure-287126fb8b15
