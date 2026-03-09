@@ -13,6 +13,10 @@ wpscan --url http://<target_url> --enumerate vp,vt,u
 wpscan --url http://<target_url> --enumerate p --plugins-detection aggressive
 ffuf -u http://<ip>/wp-content/plugins/FUZZ -w wp-plugins.txt
 ```
+For user enumeration:
+```
+wpscan --url http://$target/ --enumerate u 
+```
 If the user is found, try this:
 ```
 wpscan --url <URL> -U admin -P /usr/share/wordlists/rockyou.txt
