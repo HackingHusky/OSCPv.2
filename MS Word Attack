@@ -1,7 +1,6 @@
 # Word Attack
 
 
-
 ## Note
 This isn't necessarily on the test I saw, but in proving grounds, though. Still great to learn. 
 
@@ -14,4 +13,14 @@ You basically want your user to unblock the content, and you will need to instal
 
 Create the macro by going to View --> Macros
 
-Then drop down means you're of 
+Then drop down, choose mymarco --> Create
+
+```
+Sub MyMacro()
+'
+' MyMacro Macro
+'
+'
+
+End Sub
+```
