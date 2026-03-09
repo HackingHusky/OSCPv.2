@@ -24,6 +24,12 @@ chmod +x recon.sh
 ## Tools
 https://www.revshells.com/#bind --> Gains shells and payloads
 
+https://www.exploit-db.com/ --> everything you probably need, I go with the repo vs the other
+```
+sudo apt update && sudo apt install exploitdb
+```
+It may need an update from time to time
+
 
 ## Link on CTF enumeration and tips 
 https://medium.com/@aaronashley466/oscp-ctf-tips-and-tricks-835e7c2ab96a
