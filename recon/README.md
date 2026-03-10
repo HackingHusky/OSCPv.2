@@ -168,8 +168,22 @@ curl -i http://$target:port/users/v1
 ```
 gobuster dir -u http://$target/users/v1/admin/ -w /usr/share/wordlists/dirb/small.txt
 ```
+## uniexec.py
+This is my all-in-one tool that uses netexec, but all you need is either the hash or password of the user and does automatic checks for the user and default ports:
+```
+python uniexec.py -t $target -u thehuskyhacker -p 'Str0ngP@ss!' > results.txt 
+python uniexec.py -t 10.0.0.5 -u administrator -H 31d6cfe0d16ae931b73c59d7e0c089c
+```
+Or use the | tee results.txt at the end to see it live on screen.
 
-For the most part, I made active notes here:
+You can also use the ports commands if you want to just test the ports:
+```
+python uniexec.py -t dc01 -u svc -p 'Secret!' --ports 445,135,139 
+```
+That's just an example. 
+
+
+## I made active notes here:
 
 https://medium.com/@aaronashley466/oscp-notes-recon-and-methodology-initial-access-cheatsheet-f2c0daf1f34c
 
