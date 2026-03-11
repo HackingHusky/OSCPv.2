@@ -13,6 +13,20 @@ tar -xvzf bloodhound-cli-linux-amd64.tar.gz
 ```
 sudo ./bloodhound-cli install
 ```
+```
+chmod +x bloodhound-cli
+```
+
+```
+sudo mv bloodhound-cli /usr/local/bin/
+```
+Save your password: The install command will output a randomly generated password for the admin user. Copy this immediately, as you will need it to log in at http://localhost:8080.
+
+Note: If you forget your password:
+```
+loodhound-cli resetpwd
+```
+
 Once done:
 <img width="1893" height="72" alt="image" src="https://github.com/user-attachments/assets/1e18160d-6371-4214-9291-32d276cb9545" />
 
