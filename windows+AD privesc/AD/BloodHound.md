@@ -24,7 +24,7 @@ Save your password: The install command will output a randomly generated passwor
 
 Note: If you forget your password:
 ```
-loodhound-cli resetpwd
+Bloodhound-cli resetpwd
 ```
 
 Once done:
