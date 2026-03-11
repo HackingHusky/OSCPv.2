@@ -70,6 +70,7 @@ rlwrap nc -lvnp <port>
 This is my main tool for web enumeration since it has a default list
 ```
 sudo apt install dirbuster -y
+sudo apt install dirsearch -y
 ```
 Use case:
 ```
