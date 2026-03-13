@@ -13,6 +13,15 @@ net user
 net localgroup administrators
 Get-ScheduledTask --> check to see if you can abuse a schedule task
 ```
+### Other quick check
+```
+whoami /priv
+wmic service get name,displayname,pathname,startmode
+reg query HKLM\Software\Policies\Microsoft\Windows\Installer
+reg query HKCU\Software\Policies\Microsoft\Windows\Installer
+echo %PATH%
+```
+
 ## PowerView Commands
 ```
 . C:\AD\Tools\PowerView.ps1
@@ -125,7 +134,12 @@ For Sigma potato:
 
 ## PATH Hijack
 PowerUp may show with write permissions to the PATH directory
-
+```
+echo %PATH%
+Get-ChildItem Env:PATH
+icacls "C:\Program Files\App"
+accesschk.exe -uwdq "C:\Program Files\App"
+```
 Like:
 ```
 Backup.exe
@@ -165,6 +179,27 @@ sc stop VulnService
 sc start VulnService
 ```
 
+## DLL Hijacking
+```
+wmic service get name,displayname,pathname,startmode
+```
+```
+icacls "C:\Program Files\App"
+```
+
+## Winpeas
+### Quick Check
+```
+winPEAS.exe quiet
+```
+privcheck
+```
+winPEAS.exe cmd
+```
+Token/priv
+```
+winPEAS.exe systeminfo
+```
 
 ## Links
 
