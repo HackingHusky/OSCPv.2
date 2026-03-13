@@ -81,6 +81,33 @@ Could be an easy win by getting the password or the id_rsa key; test with ssh2jo
 ```
 git clone https://github.com/peass-ng/PEASS-ng/releases/tag/20260306-5620909d
 ```
+### Quick Commands
+```
+./linpeas.sh -q
+```
+```
+./linpeas.sh > linpeas.txt
+```
+```
+./linpeas.sh > linpeas.txt
+```
+```
+./linpeas.sh | grep -i writable
+```
+
+```
+./linpeas.sh | grep -i cron
+```
+```
+./linpeas.sh | grep -i "interesting"
+```
+```
+./linpeas.sh | grep -i docker
+```
+```
+**grep -Ei "suid|sudo|cap|cron|writable|password" linpeas.txt**
+```
+
 ## PSPY link
 https://github.com/DominicBreuker/pspy/releases/tag/v1.2.1
 
