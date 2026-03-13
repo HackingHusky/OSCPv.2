@@ -21,6 +21,10 @@ https://docs.google.com/spreadsheets/d/18weuz_Eeynr6sXFQ87Cd5F0slOj9Z6rt/htmlvie
 
 I made my own lists like these, but also added every note and thing I found on my journey, and if you're reading this, I want you to pass as well. I am making it my mission to get everyone to pass this exam. 
 
+## The last 12-14 Days before test time:
+
+https://medium.com/@aaronashley466/last-minute-checks-timelines-game-plan-before-oscp-exam-0045ee2689e3
+
 ## Pomodoro-1Hour.sh Script
 
 So if you have a hard time and are going down bad rabbit holes, this is a quick script to fix that:
