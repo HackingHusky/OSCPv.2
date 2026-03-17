@@ -193,6 +193,37 @@ wmic service get name,displayname,pathname,startmode
 icacls "C:\Program Files\App"
 ```
 
+## Sharpup
+Link: https://github.com/GhostPack/SharpUp
+
+Commands:
+```
+SharpUp.exe audit
+```
+```
+SharpUp.exe HijackablePaths
+```
+```
+SharpUp.exe audit HijackablePaths
+```
+```
+SharpUp.exe AlwaysInstallElevated
+SharpUp.exe CachedGPPPassword
+SharpUp.exe DomainGPPPassword
+SharpUp.exe HijackablePaths
+SharpUp.exe McAfeeSitelistFiles
+SharpUp.exe ModifiableScheduledTask
+SharpUp.exe ModifiableServiceBinaries
+SharpUp.exe ModifiableServiceRegistryKeys
+SharpUp.exe ModifiableServices
+SharpUp.exe ProcessDLLHijack
+SharpUp.exe RegistryAutoLogons
+SharpUp.exe RegistryAutoruns
+SharpUp.exe TokenPrivileges
+SharpUp.exe UnattendedInstallFiles
+SharpUp.exe UnquotedServicePath
+```
+
 ## Winpeas
 ### Quick Check
 ```
