@@ -6,7 +6,7 @@
 
 ### This is my repo on all the scripts and lessons I learned along the way
 
-I wanted to share a huge thank-you for all the positive feedback on my blog post about the note series, and wanted to make this a last-stop repo. It's been fun building this out. While the OSCP itself is extremely tough, I wanted to give back to an amazing community. I failed it twice so far, but I never really put the pen to paper with my notes until I started making blog posts on CTFs and sharing what I learned. I wanted to make this repo so you can clone it and get all the tools you need. Making this for all the underdogs out there who want to pass. 
+I wanted to share a huge thank-you for all the positive feedback on my blog post about the note series, and wanted to make this a last-stop repo. It's been fun building this out. While the OSCP itself is extremely tough, I wanted to give back to an amazing community. I failed it twice so far, but I never really put pen to paper on my notes until I started writing blog posts about CTFs and sharing what I learned. I wanted to make this repo so you can clone it and get all the tools you need. Making this for all the underdogs out there who want to pass. 
 
 ## Here's more about me, my struggle with the OSCP, and my own cybersecurity journey:
 https://medium.com/@aaronashley466/guide-to-ocsp-things-i-learned-along-the-way-from-failure-287126fb8b15
@@ -19,7 +19,7 @@ https://docs.google.com/spreadsheets/u/0/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBn
 
 https://docs.google.com/spreadsheets/d/18weuz_Eeynr6sXFQ87Cd5F0slOj9Z6rt/htmlview#
 
-I made my own lists like these, but also added every note and thing I found on my journey, and if you're reading this, I want you to pass as well. I am making it my mission to get everyone to pass this exam. 
+I made my own lists like these, but I also added every note and thing I found on my journey, and if you're reading this, I want you to pass it along as well. I am making it my mission to get everyone to pass this exam. 
 
 ## The last 12-14 Days before test time:
 
@@ -28,6 +28,8 @@ https://medium.com/@aaronashley466/last-minute-checks-timelines-game-plan-before
 ## My Ultimate Website 
 
 https://master-oscp-path.base44.app/
+
+https://oscpguide.com
 
 It's free to use and join!! 
 
