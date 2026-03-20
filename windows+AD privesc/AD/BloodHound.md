@@ -22,7 +22,7 @@ sudo mv bloodhound-cli /usr/local/bin/
 ```
 Save your password: The install command will output a randomly generated password for the admin user. Copy this immediately, as you will need it to log in at http://localhost:8080.
 
-Note: If you forget your password:
+Note: If you forget your password or issues with the password:
 ```
 Bloodhound-cli resetpwd
 ```
