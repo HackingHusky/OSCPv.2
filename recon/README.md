@@ -21,6 +21,12 @@ Then run it like this:
 python3 scan.py -t $target -p 22,80,443 -a "-sC -sV -v"
 ```
 
+Port scanner:
+```
+chmod +x scanner.sh
+./scanner.sh 10.10.10.5
+```
+
 Repo here: https://github.com/HackingHusky/python-nmap-scan
 
 UDP Scan:
