@@ -13,9 +13,6 @@ id kali | grep docker
 ```
 
 ```
-sudo apt update
-```
-```
 wget https://github.com/SpecterOps/bloodhound-cli/releases/latest/download/bloodhound-cli-linux-amd64.tar.gz
 ```
 ```
