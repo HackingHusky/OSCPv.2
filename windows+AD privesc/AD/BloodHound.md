@@ -1,5 +1,16 @@
 # Blood Hound Install 
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/a6d42f77-b4ef-41f3-a3bb-1c1a7879c201" />
+
 ## Steps
+```
+sudo apt update 
+
+sudo apt install -y docker.io docker-compose
+
+sudo usermod -aG docker kali
+
+id kali | grep docker
+```
 
 ```
 sudo apt update
