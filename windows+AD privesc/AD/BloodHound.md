@@ -4,11 +4,14 @@
 ## Steps
 ```
 sudo apt update 
-
+```
+```
 sudo apt install -y docker.io docker-compose
-
+```
+```
 sudo usermod -aG docker kali
-
+```
+```
 id kali | grep docker
 ```
 
