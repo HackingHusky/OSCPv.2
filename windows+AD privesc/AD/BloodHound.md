@@ -71,7 +71,9 @@ nxc ldap dc01.domain.local -u user -p '' --bloodhound --collection All --dns-ser
 ```
 nxc ldap dc01.domain.local -u administrator -H NTLMHASH --bloodhound --collection All
 ```
-
+```
+bloodhound-python -d <DOMAIN> -u <USERNAME> --hashes :<NTLM_HASH> -c All -ns <NAMESERVER_IP>
+```
 ## Follow Kali as well:
 
 https://www.kali.org/tools/bloodhound/
