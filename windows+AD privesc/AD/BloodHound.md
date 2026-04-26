@@ -22,6 +22,9 @@ wget https://github.com/SpecterOps/bloodhound-cli/releases/latest/download/blood
 tar -xvzf bloodhound-cli-linux-amd64.tar.gz
 ```
 ```
+sudo mv bloodhound-cli /usr/local/bin
+```
+```
 sudo ./bloodhound-cli install
 ```
 ```
